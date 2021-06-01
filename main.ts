@@ -1,4 +1,5 @@
 function RiktigLøsning () {
+    soundExpression.giggle.play()
     Lysstyrke = 255
     for (let index = 0; index < 3; index++) {
         for (let index = 0; index < 20; index++) {
@@ -42,6 +43,7 @@ input.onButtonPressed(Button.A, function () {
     radio.sendValue("spill", 2)
 })
 function FeilLøsning () {
+    soundExpression.sad.play()
     Lysstyrke = 255
     for (let index = 0; index < 3; index++) {
         for (let index = 0; index < 20; index++) {
