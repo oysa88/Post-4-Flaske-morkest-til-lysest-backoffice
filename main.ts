@@ -38,7 +38,7 @@ function Spille_på_flaskene () {
 }
 input.onButtonPressed(Button.A, function () {
     radio.sendValue("spill", 3)
-    radio.sendValue("spill", 2)
+    radio.sendValue("spill", 1)
     radio.sendValue("spill", 4)
     radio.sendValue("spill", 2)
 })
@@ -97,7 +97,12 @@ let strip: neopixel.Strip = null
 let riktigSekvens: number[] = []
 let fremskritt = 0
 fremskritt = 0
-riktigSekvens = [3, 1, 4, 2]
+riktigSekvens = [
+3,
+1,
+4,
+2
+]
 strip = neopixel.create(DigitalPin.P0, 16, NeoPixelMode.RGB)
 Mottatt = 0
 radio.setGroup(1)
