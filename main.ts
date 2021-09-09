@@ -21,6 +21,12 @@ function RiktigLøsning () {
     basic.pause(2000)
     Initialize()
 }
+input.onButtonPressed(Button.A, function () {
+    radio.sendValue("spill", 3)
+    radio.sendValue("spill", 1)
+    radio.sendValue("spill", 4)
+    radio.sendValue("spill", 2)
+})
 function Spille_på_flaskene () {
     if (Flaske == 1) {
         basic.showNumber(1)
@@ -36,12 +42,6 @@ function Spille_på_flaskene () {
         basic.pause(100)
     }
 }
-input.onButtonPressed(Button.A, function () {
-    radio.sendValue("spill", 3)
-    radio.sendValue("spill", 1)
-    radio.sendValue("spill", 4)
-    radio.sendValue("spill", 2)
-})
 function FeilLøsning () {
     soundExpression.sad.play()
     Lysstyrke = 255
