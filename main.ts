@@ -83,7 +83,7 @@ radio.onReceivedValue(function (name, value) {
             RiktigLøsning()
         }
     }
-    if (name == "reset") {
+    if (name == "Reset") {
         Initialize()
     }
 })
