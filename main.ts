@@ -83,6 +83,9 @@ radio.onReceivedValue(function (name, value) {
             RiktigLøsning()
         }
     }
+    if (name == "reset") {
+        Initialize()
+    }
 })
 function Initialize () {
     Lysstyrke = 255
