@@ -1,25 +1,29 @@
-function RiktigLøsning () {
-    soundExpression.giggle.play()
+function RiktigLøsning() {
     Lysstyrke = 255
+    radio.sendString("R")
+    basic.showString("R", 0)
     for (let index = 0; index < 3; index++) {
-        for (let index = 0; index < 20; index++) {
+        for (let index = 0; index < 23; index++) {
             Lysstyrke += -12
             strip.showColor(neopixel.colors(NeoPixelColors.Green))
             strip.setBrightness(Lysstyrke)
             strip.show()
             basic.pause(5)
         }
-        for (let index = 0; index < 20; index++) {
+        for (let index = 0; index < 23; index++) {
             Lysstyrke += 12
             strip.showColor(neopixel.colors(NeoPixelColors.Green))
             strip.setBrightness(Lysstyrke)
             strip.show()
             basic.pause(5)
         }
+
     }
-    radio.sendString("R")
-    basic.pause(2000)
+
+    //music.playMelody("C F A C5 - A C5 - ", 400)
+    //basic.pause(1000)
     Initialize()
+    basic.showIcon(IconNames.SmallHeart, 0)
 }
 input.onButtonPressed(Button.A, function () {
     radio.sendValue("spill", 3)
@@ -27,33 +31,55 @@ input.onButtonPressed(Button.A, function () {
     radio.sendValue("spill", 4)
     radio.sendValue("spill", 2)
 })
-function Spille_på_flaskene () {
-    if (Flaske == 1) {
-        basic.showNumber(1)
-        basic.pause(100)
-    } else if (Flaske == 2) {
-        basic.showNumber(2)
-        basic.pause(100)
-    } else if (Flaske == 3) {
-        basic.showNumber(3)
-        basic.pause(100)
-    } else if (Flaske == 4) {
-        basic.showNumber(4)
-        basic.pause(100)
+
+input.onButtonPressed(Button.B, function () {
+    radio.sendValue("spill", 3)
+    radio.sendValue("spill", 1)
+    radio.sendValue("spill", 2)
+    radio.sendValue("spill", 4)
+})
+function Spille_på_flaskene(hvilken: number) {
+    if (hvilken == 1) {
+        basic.showNumber(1, 0)
+        pins.digitalWritePin(DigitalPin.P13, 1)
+        basic.pause(pulseLength)
+        pins.digitalWritePin(DigitalPin.P13, 0)
+    } else if (hvilken == 2) {
+        basic.showNumber(2, 0)
+        pins.digitalWritePin(DigitalPin.P0, 1)
+        pins.digitalWritePin(DigitalPin.P14, 1)
+
+        basic.pause(pulseLength)
+        pins.digitalWritePin(DigitalPin.P0, 0)
+        pins.digitalWritePin(DigitalPin.P14, 1)
+
+    } else if (hvilken == 3) {
+        basic.showNumber(3, 0)
+        pins.digitalWritePin(DigitalPin.P2, 1)
+        basic.pause(pulseLength)
+        pins.digitalWritePin(DigitalPin.P2, 0)
+    } else if (hvilken == 4) {
+        basic.showNumber(4, 0)
+        pins.digitalWritePin(DigitalPin.P8, 1)
+        basic.pause(pulseLength)
+        pins.digitalWritePin(DigitalPin.P8, 0)
     }
+    basic.pause(300)
+    basic.showIcon(IconNames.SmallHeart, 10)
 }
-function FeilLøsning () {
-    soundExpression.sad.play()
+function FeilLøsning() {
+    basic.showIcon(IconNames.Sad, 0)
+    //music.playMelody("F C - - - - - - ", 400)
     Lysstyrke = 255
     for (let index = 0; index < 3; index++) {
-        for (let index = 0; index < 20; index++) {
+        for (let index = 0; index < 23; index++) {
             Lysstyrke += -12
             strip.showColor(neopixel.colors(NeoPixelColors.Red))
             strip.setBrightness(Lysstyrke)
             strip.show()
             basic.pause(5)
         }
-        for (let index = 0; index < 20; index++) {
+        for (let index = 0; index < 23; index++) {
             Lysstyrke += 12
             strip.showColor(neopixel.colors(NeoPixelColors.Red))
             strip.setBrightness(Lysstyrke)
@@ -61,15 +87,15 @@ function FeilLøsning () {
             basic.pause(5)
         }
     }
-    basic.pause(2000)
+    basic.showIcon(IconNames.SmallHeart, 0)
+    basic.pause(1000)
     Initialize()
 }
 radio.onReceivedValue(function (name, value) {
     if (name == "spill") {
         Flaske = value
         Mottatt += 1
-        Spille_på_flaskene()
-        // eller hva det er du har bedt de skrive
+        Spille_på_flaskene(Flaske)
         if (Flaske == riktigSekvens[fremskritt]) {
             fremskritt += 1
         } else {
@@ -83,11 +109,8 @@ radio.onReceivedValue(function (name, value) {
             RiktigLøsning()
         }
     }
-    if (name == "Reset") {
-        Initialize()
-    }
 })
-function Initialize () {
+function Initialize() {
     Lysstyrke = 255
     fremskritt = 0
     Mottatt = 0
@@ -99,14 +122,13 @@ let Mottatt = 0
 let strip: neopixel.Strip = null
 let riktigSekvens: number[] = []
 let fremskritt = 0
+let pulseLength = 60
+//music.playMelody("C F - - - - - - ", 400)
+basic.showIcon(IconNames.Heart)
+basic.showIcon(IconNames.SmallHeart, 0)
 fremskritt = 0
-riktigSekvens = [
-3,
-1,
-4,
-2
-]
-strip = neopixel.create(DigitalPin.P0, 16, NeoPixelMode.RGB)
+riktigSekvens = [3, 1, 4, 2]
+strip = neopixel.create(DigitalPin.P1, 24, NeoPixelMode.RGB)
 Mottatt = 0
-radio.setGroup(1)
+radio.setGroup(4)
 Initialize()
