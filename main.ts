@@ -1,7 +1,7 @@
 function RiktigLøsning() {
     Lysstyrke = 255
-    radio.sendString("R")
-    basic.showString("R", 0)
+    radio.sendString("N")
+    basic.showString("N", 0)
     for (let index = 0; index < 3; index++) {
         for (let index = 0; index < 23; index++) {
             Lysstyrke += -12
@@ -25,19 +25,6 @@ function RiktigLøsning() {
     Initialize()
     basic.showIcon(IconNames.SmallHeart, 0)
 }
-input.onButtonPressed(Button.A, function () {
-    radio.sendValue("spill", 3)
-    radio.sendValue("spill", 1)
-    radio.sendValue("spill", 4)
-    radio.sendValue("spill", 2)
-})
-
-input.onButtonPressed(Button.B, function () {
-    radio.sendValue("spill", 3)
-    radio.sendValue("spill", 1)
-    radio.sendValue("spill", 2)
-    radio.sendValue("spill", 4)
-})
 function Spille_på_flaskene(hvilken: number) {
     if (hvilken == 1) {
         basic.showNumber(1, 0)
